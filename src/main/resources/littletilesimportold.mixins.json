@@ -1,0 +1,14 @@
+{
+    "required": true,
+    "package": "team.creative.littletilesimportold.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "refmap": "littletilesimportold.mixins.refmap.json",
+    "server": [
+    ],
+    "mixins": [
+    ],
+    "client": [
+        "ItemStackMixin"
+    ],
+    "minVersion": "0.8"
+}

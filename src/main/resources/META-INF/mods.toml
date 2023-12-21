@@ -1,0 +1,42 @@
+modLoader="javafml"
+loaderVersion="[46,)"
+issueTrackerURL="https://github.com/CreativeMD/LittleTilesImportOld/issues"
+license="LGPL-3.0-only"
+
+[[mods]]
+    modId="littletilesimportold"
+    logoFile="littletilesimportold.png"
+    version="0.1"
+    displayName="LittleTilesImportOld"
+    displayURL=""
+    authors="CreativeMD"
+    description='''An addon for LittleTiles to be able to import worlds from 1.12.'''
+
+[[dependencies.littletilesimportold]]
+    modId="forge"
+    mandatory=true
+    versionRange="[46,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.littletilesimportold]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.20,1.21)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.littletilesimportold]]
+   modId="creativecore"
+   mandatory=true
+   ordering="NONE"
+   side="BOTH"
+   versionRange="2.11.15"
+
+[[dependencies.littletilesimportold]]
+   modId="littletiles"
+   mandatory=true
+   ordering="NONE"
+   side="BOTH"
+   versionRange="[1.6,)"
+
