@@ -34,7 +34,7 @@ public class OldConverationHandler {
                 event.level.setBlock(block.getBlockPos(), BlockTile.getState(block.ticking(), block.rendered()), 3);
                 BETiles be = BlockTile.loadBE(event.level, block.getBlockPos());
                 
-                LittleGrid grid = LittleGrid.get(nbt);
+                LittleGrid grid = LittleGrid.get(block.getOldData());
                 be.convertTo(grid);
                 be.updateTiles(x -> {
                     OldLittleTilesDataParser.collect(nbt.getList("tiles", Tag.TAG_COMPOUND), x.noneStructureTiles()::add);
