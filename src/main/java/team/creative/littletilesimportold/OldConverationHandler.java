@@ -1,6 +1,7 @@
 package team.creative.littletilesimportold;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -20,15 +21,23 @@ import team.creative.littletiles.common.grid.LittleGrid;
 public class OldConverationHandler {
     
     public static HashMapList<Level, OldBETiles> blockEntities = new HashMapList<>();
+    private static boolean processing = false;
+    private static List<OldBETiles> queued = new ArrayList<>();
     
     public static void add(OldBETiles tiles) {
         if (!tiles.getLevel().isClientSide)
-            blockEntities.add(tiles.getLevel(), tiles);
+            if (processing)
+                synchronized (queued) {
+                    queued.add(tiles);
+                }
+            else
+                blockEntities.add(tiles.getLevel(), tiles);
     }
     
     public static void tick(LevelTickEvent event) {
         ArrayList<OldBETiles> blocks = blockEntities.get(event.level);
         if (blocks != null) {
+            processing = true;
             for (OldBETiles block : blocks) {
                 CompoundTag nbt = block.getOldData().getCompound("content");
                 event.level.setBlock(block.getBlockPos(), BlockTile.getState(block.ticking(), block.rendered()), 3);
@@ -63,6 +72,11 @@ public class OldConverationHandler {
                 be.markDirty();
             }
             blockEntities.removeKey(event.level);
+            processing = false;
+            synchronized (queued) {
+                for (OldBETiles tiles : queued)
+                    blockEntities.add(tiles.getLevel(), tiles);
+            }
         }
     }
     
