@@ -1,5 +1,8 @@
 package team.creative.littletilesimportold;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -9,6 +12,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 public class LittleTilesImportOld {
     
     public static final String MODID = "littletilesimportold";
+    public static final Logger LOGGER = LogManager.getLogger(LittleTilesImportOld.MODID);
     
     public LittleTilesImportOld() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::init);

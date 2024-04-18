@@ -21,23 +21,30 @@ import team.creative.littletiles.common.grid.LittleGrid;
 public class OldConverationHandler {
     
     public static HashMapList<Level, OldBETiles> blockEntities = new HashMapList<>();
+    private static final int LOGUPDATE = 100;
+    private static volatile int TOTAL_QUEUED = 0;
+    private static int COUNTER = 0;
+    private static int TOTAL = 0;
     private static boolean processing = false;
     private static List<OldBETiles> queued = new ArrayList<>();
     
     public static void add(OldBETiles tiles) {
-        if (!tiles.getLevel().isClientSide)
+        if (!tiles.getLevel().isClientSide) {
             if (processing)
                 synchronized (queued) {
                     queued.add(tiles);
                 }
             else
                 blockEntities.add(tiles.getLevel(), tiles);
+            TOTAL_QUEUED++;
+        }
     }
     
     public static void tick(LevelTickEvent event) {
         ArrayList<OldBETiles> blocks = blockEntities.get(event.level);
         if (blocks != null) {
             processing = true;
+            int j = 0;
             for (OldBETiles block : blocks) {
                 CompoundTag nbt = block.getOldData().getCompound("content");
                 event.level.setBlock(block.getBlockPos(), BlockTile.getState(block.ticking(), block.rendered()), 3);
@@ -70,6 +77,13 @@ public class OldConverationHandler {
                 });
                 
                 be.markDirty();
+                COUNTER--;
+                TOTAL++;
+                j++;
+                if (COUNTER < 0) {
+                    LittleTilesImportOld.LOGGER.info("Converted {}/{} (total {}/{})", j, blocks.size(), TOTAL, TOTAL_QUEUED);
+                    COUNTER = LOGUPDATE;
+                }
             }
             blockEntities.removeKey(event.level);
             processing = false;
