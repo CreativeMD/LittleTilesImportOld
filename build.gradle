@@ -87,8 +87,8 @@ dependencies {
     minecraft "net.minecraftforge:forge:${project.property 'minecraft_version'}-${project.property 'forge_version'}"
 
     // TEST
-    minecraftLibrary fg.deobf("org.embeddedt:embeddium-1.20.1:0.3.1-git.6555372+mc1.20.1")
-    minecraftLibrary fg.deobf("curse.maven:oculus-581495:5080444")
+    minecraftLibrary fg.deobf("curse.maven:oculus-581495:5299671")
+    minecraftLibrary fg.deobf("org.embeddedt:embeddium-1.20.1:0.3.20-git-b21cfd8+mc1.20.1")
 
     // DEPENDENCIES
     implementation project(':CreativeCore')
