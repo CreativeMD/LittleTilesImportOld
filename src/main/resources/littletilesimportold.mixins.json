@@ -6,10 +6,10 @@
     "server": [
     ],
     "mixins": [
-        "RegionFileMixin"
+        "RegionFileMixin",
+        "ItemStackComponentizationFixMixin"
     ],
     "client": [
-        "ItemStackMixin"
     ],
     "minVersion": "0.8"
 }

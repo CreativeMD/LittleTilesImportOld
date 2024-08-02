@@ -1,6 +1,7 @@
 package team.creative.littletilesimportold;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -41,9 +42,9 @@ public class OldBETiles extends BlockEntityCreative {
     public void handleUpdate(CompoundTag nbt, boolean chunkUpdate) {}
     
     @Override
-    public void load(CompoundTag nbt) {
+    protected void loadAdditional(CompoundTag nbt, Provider provider) {
         this.oldData = nbt.copy();
-        super.load(nbt);
+        super.loadAdditional(nbt, provider);
     }
     
     public static class OldBETilesTicking extends OldBETiles {

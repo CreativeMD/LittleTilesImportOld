@@ -8,8 +8,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.TickEvent.LevelTickEvent;
-import net.minecraftforge.event.level.LevelEvent;
+import net.neoforged.neoforge.event.level.LevelEvent;
+import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import team.creative.creativecore.common.util.type.map.HashMapList;
 import team.creative.littletiles.common.block.entity.BETiles;
 import team.creative.littletiles.common.block.little.tile.parent.StructureParentCollection;
@@ -40,15 +40,16 @@ public class OldConverationHandler {
         }
     }
     
-    public static void tick(LevelTickEvent event) {
-        ArrayList<OldBETiles> blocks = blockEntities.get(event.level);
+    public static void tick(LevelTickEvent.Post event) {
+        var level = event.getLevel();
+        ArrayList<OldBETiles> blocks = blockEntities.get(level);
         if (blocks != null) {
             processing = true;
             int j = 0;
             for (OldBETiles block : blocks) {
                 CompoundTag nbt = block.getOldData().getCompound("content");
-                event.level.setBlock(block.getBlockPos(), BlockTile.getState(block.ticking(), block.rendered()), 3);
-                BETiles be = BlockTile.loadBE(event.level, block.getBlockPos());
+                level.setBlock(block.getBlockPos(), BlockTile.getState(block.ticking(), block.rendered()), 3);
+                BETiles be = BlockTile.loadBE(level, block.getBlockPos());
                 
                 LittleGrid grid = LittleGrid.get(block.getOldData());
                 be.convertTo(grid);
@@ -85,7 +86,7 @@ public class OldConverationHandler {
                     COUNTER = LOGUPDATE;
                 }
             }
-            blockEntities.removeKey(event.level);
+            blockEntities.removeKey(level);
             processing = false;
             synchronized (queued) {
                 for (OldBETiles tiles : queued)
