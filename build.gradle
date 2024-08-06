@@ -150,7 +150,7 @@ String getChangelogText() {
     return result
 }
 
-/*task upload(type: GradleBuild) {
+task upload(type: GradleBuild) {
     description 'Uploads new version to modrinth and curseforge.'
     group = 'publishing'
     tasks = ['modrinth', 'curseforge']
@@ -202,4 +202,4 @@ curseforge {
             optionalLibrary "littletiles"
         }
     }
-}*/
+}

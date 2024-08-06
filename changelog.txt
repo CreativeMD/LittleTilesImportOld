@@ -1,0 +1,2 @@
+1.0.3
+Fixed minecraft skipping chunks with too much data inside

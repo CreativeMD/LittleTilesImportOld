@@ -8,7 +8,7 @@ license="LGPL-3.0-only"
     logoFile="littletilesimportold.png"
     version="1.0.3"
     displayName="LittleTilesImportOld"
-    displayURL=""
+    displayURL="https://modrinth.com/mod/littletilesimportold"
     authors="CreativeMD"
     description='''An addon for LittleTiles to be able to import worlds from 1.12.'''
 
