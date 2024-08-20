@@ -62,7 +62,7 @@ public class OldConverationHandler {
                         try {
                             var structure = x.addStructure(child.getInt("index"), child.getInt("type"));
                             if (child.contains("structure"))
-                                structure.setStructureNBT(OldLittleTilesDataParser.convertStructureData(child.getCompound("structure")));
+                                structure.setStructureNBT(OldLittleTilesDataParser.convertStructureData(child.getCompound("structure")), level.registryAccess());
                             else {
                                 int[] array = child.getIntArray("coord");
                                 if (array.length == 3)
