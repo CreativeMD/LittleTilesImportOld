@@ -177,8 +177,7 @@ modrinth {
     loaders = [ "forge", "neoforge" ]
     dependencies {
         required.project "creativecore"
-        required.project "watermedia"
-        optional.project "littletiles"
+        required.project "littletiles"
     }
 }
 
@@ -198,8 +197,7 @@ curseforge {
         }
         relations {
             requiredLibrary "creativecore"
-            requiredLibrary "watermedia"
-            optionalLibrary "littletiles"
+            requiredLibrary "littletiles"
         }
     }
 }
