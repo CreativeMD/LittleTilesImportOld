@@ -39,6 +39,11 @@ public class OldBETiles extends BlockEntityCreative {
     }
     
     @Override
+    public boolean isValidBlockState(BlockState state) {
+        return true;
+    }
+    
+    @Override
     public void handleUpdate(CompoundTag nbt, boolean chunkUpdate) {}
     
     @Override

@@ -10,13 +10,13 @@ import com.mojang.serialization.Dynamic;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.util.datafix.fixes.ItemStackComponentizationFix;
 import team.creative.littletiles.LittleTilesRegistry;
 import team.creative.littletiles.common.convertion.OldLittleTilesDataParser;
 import team.creative.littletiles.common.convertion.OldLittleTilesDataParser.LittleConvertException;
 import team.creative.littletiles.common.item.ItemLittleBlueprint;
 
-@Mixin(ItemStack.class)
+@Mixin(ItemStackComponentizationFix.class)
 public class ItemStackComponentizationFixMixin {
     
     @Inject(at = @At("TAIL"), require = 1,

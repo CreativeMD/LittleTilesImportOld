@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.OptionalDynamic;
 
-@Mixin(targets = "net.minecraft.util.datafix.fixes.ItemStackComponentizationFix.ItemStackData")
+@Mixin(targets = "net.minecraft.util.datafix.fixes.ItemStackComponentizationFix$ItemStackData")
 public interface ItemStackDataAccessor {
     
     @Accessor
