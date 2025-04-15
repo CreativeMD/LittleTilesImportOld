@@ -10,6 +10,7 @@ import team.creative.creativecore.common.be.BlockEntityCreative;
 public class OldBETiles extends BlockEntityCreative {
     
     private CompoundTag oldData;
+    public boolean processed = false;
     
     public OldBETiles(BlockPos pos, BlockState state) {
         this(LittleTilesImportOldRegistry.OLD_BE_TILES_TYPE.get(), pos, state);
