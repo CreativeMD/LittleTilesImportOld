@@ -1,2 +1,5 @@
+1.0.4
+Fixed converting some blocks multiple times causing weird issues and crashes
+
 1.0.3
 Fixed minecraft skipping chunks with too much data inside
