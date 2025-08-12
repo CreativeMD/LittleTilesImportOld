@@ -33,13 +33,13 @@ public class LittleTilesImportOldRegistry {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, "minecraft");
     
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<OldBETiles>> OLD_BE_TILES_TYPE = registerBlockEntity("littletilestileentity",
-        () -> BlockEntityType.Builder.of(OldBETiles::new, OLD_BLOCK_TILES.value()));
+        () -> BlockEntityType.Builder.<OldBETiles>of(OldBETiles::new, OLD_BLOCK_TILES.value()));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<OldBETilesTicking>> OLD_BE_TILES_TYPE_TICKING = registerBlockEntity("littletilestileentityticking",
-        () -> BlockEntityType.Builder.of(OldBETilesTicking::new, OLD_BLOCK_TILES.value()));
+        () -> BlockEntityType.Builder.<OldBETilesTicking>of(OldBETilesTicking::new, OLD_BLOCK_TILES.value()));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<OldBETilesRendered>> OLD_BE_TILES_TYPE_RENDERED = registerBlockEntity("littletilestileentityrendered",
-        () -> BlockEntityType.Builder.of(OldBETilesRendered::new, OLD_BLOCK_TILES.value()));
+        () -> BlockEntityType.Builder.<OldBETilesRendered>of(OldBETilesRendered::new, OLD_BLOCK_TILES.value()));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<OldBETilesTickingRendered>> OLD_BE_TILES_TYPE_TICKING_RENDERED = registerBlockEntity(
-        "littletilestileentitytickingrendered", () -> BlockEntityType.Builder.of(OldBETilesTickingRendered::new, OLD_BLOCK_TILES.value()));
+        "littletilestileentitytickingrendered", () -> BlockEntityType.Builder.<OldBETilesTickingRendered>of(OldBETilesTickingRendered::new, OLD_BLOCK_TILES.value()));
     
     public static <T extends BlockEntity> DeferredHolder<BlockEntityType<?>, BlockEntityType<T>> registerBlockEntity(String name, Supplier<BlockEntityType.Builder<T>> sup) {
         return BLOCK_ENTITIES.register(name, () -> sup.get().build(Util.fetchChoiceType(References.BLOCK_ENTITY, name)));
