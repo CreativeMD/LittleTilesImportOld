@@ -17,6 +17,7 @@ import team.creative.littletiles.common.block.little.tile.parent.StructureParent
 import team.creative.littletiles.common.block.mc.BlockTile;
 import team.creative.littletiles.common.convertion.OldLittleTilesDataParser;
 import team.creative.littletiles.common.convertion.OldLittleTilesDataParser.LittleConvertException;
+import team.creative.littletiles.common.convertion.OldLittleTilesDataParser.LittleMissingStructureException;
 import team.creative.littletiles.common.grid.LittleGrid;
 
 public class OldConverationHandler {
@@ -74,9 +75,18 @@ public class OldConverationHandler {
                         CompoundTag child = list.getCompound(i);
                         try {
                             var structure = x.addStructure(child.getInt("index"), child.getInt("type"));
-                            if (child.contains("structure"))
-                                structure.setStructureNBT(OldLittleTilesDataParser.convertStructureData(child.getCompound("structure")), level.registryAccess());
-                            else {
+                            if (child.contains("structure")) {
+                                CompoundTag converted;
+                                try {
+                                    converted = OldLittleTilesDataParser.convertStructureData(child.getCompound("structure"));
+                                } catch (LittleMissingStructureException e) {
+                                    converted = child.getCompound("structure");
+                                    converted.putString("id_former", converted.getString("id"));
+                                    converted.putString("id", "fixed");
+                                    converted = OldLittleTilesDataParser.convertStructureData(converted);
+                                }
+                                structure.setStructureNBT(converted, level.registryAccess());
+                            } else {
                                 int[] array = child.getIntArray("coord");
                                 if (array.length == 3)
                                     StructureParentCollection.setRelativePos(structure, new BlockPos(array[0], array[1], array[2]));
