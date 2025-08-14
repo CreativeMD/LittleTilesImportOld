@@ -1,3 +1,6 @@
+1.0.5
+Fixed not being able to handle unknown structure types
+
 1.0.4
 Fixed converting some blocks multiple times causing weird issues and crashes
 
