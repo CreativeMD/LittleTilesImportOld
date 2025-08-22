@@ -15,6 +15,7 @@ import team.creative.littletiles.LittleTilesRegistry;
 import team.creative.littletiles.common.convertion.OldLittleTilesDataParser;
 import team.creative.littletiles.common.convertion.OldLittleTilesDataParser.LittleConvertException;
 import team.creative.littletiles.common.item.ItemLittleBlueprint;
+import team.creative.littletilesimportold.LittleTilesImportOld;
 
 @Mixin(ItemStackComponentizationFix.class)
 public class ItemStackComponentizationFixMixin {
@@ -32,9 +33,9 @@ public class ItemStackComponentizationFixMixin {
                     CompoundTag content = OldLittleTilesDataParser.convert(tag);
                     tag = new CompoundTag();
                     tag.put(ItemLittleBlueprint.CONTENT_KEY, content);
-                    d.setTag(new Dynamic<>(NbtOps.INSTANCE, tag));
+                    d.callSetComponent(LittleTilesRegistry.DATA.getRegisteredName(), new Dynamic<>(NbtOps.INSTANCE, tag));
                 } catch (LittleConvertException e) {
-                    e.printStackTrace();
+                    LittleTilesImportOld.LOGGER.catching(e);
                 }
                 
             }
@@ -43,9 +44,9 @@ public class ItemStackComponentizationFixMixin {
             CompoundTag tag = (CompoundTag) d.getTag().cast(NbtOps.INSTANCE);
             if (!tag.isEmpty())
                 try {
-                    d.setTag(new Dynamic<>(NbtOps.INSTANCE, OldLittleTilesDataParser.convert(tag)));
+                    d.callSetComponent(LittleTilesRegistry.DATA.getRegisteredName(), new Dynamic<>(NbtOps.INSTANCE, OldLittleTilesDataParser.convert(tag)));
                 } catch (LittleConvertException e) {
-                    e.printStackTrace();
+                    LittleTilesImportOld.LOGGER.catching(e);
                 }
         }
     }
