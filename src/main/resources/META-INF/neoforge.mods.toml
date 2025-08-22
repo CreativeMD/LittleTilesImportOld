@@ -6,7 +6,7 @@ license="LGPL-3.0-only"
 [[mods]]
     modId="littletilesimportold"
     logoFile="littletilesimportold.png"
-    version="1.0.5"
+    version="1.0.6"
     displayName="LittleTilesImportOld"
     displayURL="https://modrinth.com/mod/littletilesimportold"
     authors="CreativeMD"
