@@ -77,9 +77,18 @@ public class OldConverationHandler {
                         CompoundTag child = list.getCompound(i);
                         try {
                             var structure = x.addStructure(child.getInt("index"), child.getInt("type"));
-                            if (child.contains("structure"))
-                                structure.setStructureNBT(OldLittleTilesDataParser.convertStructureData(child.getCompound("structure")));
-                            else {
+                            if (child.contains("structure")) {
+                                CompoundTag converted;
+                                try {
+                                    converted = OldLittleTilesDataParser.convertStructureData(child.getCompound("structure"));
+                                } catch (OldLittleTilesDataParser.LittleMissingStructureException e) {
+                                    converted = child.getCompound("structure");
+                                    converted.putString("id_former", converted.getString("id"));
+                                    converted.putString("id", "fixed");
+                                    converted = OldLittleTilesDataParser.convertStructureData(converted);
+                                }
+                                structure.setStructureNBT(converted);
+                            } else {
                                 int[] array = child.getIntArray("coord");
                                 if (array.length == 3)
                                     StructureParentCollection.setRelativePos(structure, new BlockPos(array[0], array[1], array[2]));
