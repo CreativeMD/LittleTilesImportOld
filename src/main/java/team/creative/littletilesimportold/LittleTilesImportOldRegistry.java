@@ -23,10 +23,10 @@ public class LittleTilesImportOldRegistry {
     
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(BuiltInRegistries.BLOCK, LittleTiles.MODID);
     
-    public static final Holder<Block> OLD_BLOCK_TILES = BLOCKS.register("blocklittletiles", () -> new Block(Properties.of()));
-    public static final Holder<Block> OLD_BLOCK_TILES_TICKING = BLOCKS.register("blocklittletilesticking", () -> new Block(Properties.of()));
-    public static final Holder<Block> OLD_BLOCK_TILES_RENDERED = BLOCKS.register("blocklittletilesrendered", () -> new Block(Properties.of()));
-    public static final Holder<Block> OLD_BLOCK_TILES_TICKING_RENDERED = BLOCKS.register("blocklittletilestickingrendered", () -> new Block(Properties.of()));
+    public static final Holder<Block> OLD_BLOCK_TILES = BLOCKS.register("blocklittletiles", () -> new BlockOld(Properties.of()));
+    public static final Holder<Block> OLD_BLOCK_TILES_TICKING = BLOCKS.register("blocklittletilesticking", () -> new BlockOld(Properties.of()));
+    public static final Holder<Block> OLD_BLOCK_TILES_RENDERED = BLOCKS.register("blocklittletilesrendered", () -> new BlockOld(Properties.of()));
+    public static final Holder<Block> OLD_BLOCK_TILES_TICKING_RENDERED = BLOCKS.register("blocklittletilestickingrendered", () -> new BlockOld(Properties.of()));
     
     // BLOCK_ENTITY
     

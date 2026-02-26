@@ -6,9 +6,10 @@
     "server": [
     ],
     "mixins": [
-        "RegionFileMixin",
         "ItemStackDataAccessor",
-        "ItemStackComponentizationFixMixin"
+        "ItemStackComponentizationFixMixin",
+        "LevelChunkMixin",
+        "RegionFileMixin"
     ],
     "client": [
     ],

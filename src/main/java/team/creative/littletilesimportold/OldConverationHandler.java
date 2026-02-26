@@ -59,48 +59,50 @@ public class OldConverationHandler {
             processing = true;
             int j = 0;
             for (OldBETiles block : blocks.values()) {
-                CompoundTag nbt = block.getOldData().getCompound("content");
-                level.setBlock(block.getBlockPos(), BlockTile.getState(block.ticking(), block.rendered()), 3);
-                BETiles be = BlockTile.loadBE(level, block.getBlockPos());
-                
-                LittleGrid grid = LittleGrid.get(block.getOldData());
-                if (!be.isEmpty())
-                    System.out.println(be.getBlockPos() + " is receiving another update");
-                be.convertTo(grid);
-                be.updateTiles(x -> {
-                    OldLittleTilesDataParser.collect(nbt.getList("tiles", Tag.TAG_COMPOUND), x.noneStructureTiles()::add);
-                    ListTag list = nbt.getList("children", Tag.TAG_COMPOUND);
+                if (block.getOldData() != null && !block.processed) {
+                    CompoundTag nbt = block.getOldData().getCompound("content");
+                    level.setBlock(block.getBlockPos(), BlockTile.getState(block.ticking(), block.rendered()), 3);
+                    BETiles be = BlockTile.loadBE(level, block.getBlockPos());
                     
-                    for (int i = 0; i < list.size(); i++) {
-                        CompoundTag child = list.getCompound(i);
-                        try {
-                            var structure = x.addStructure(child.getInt("index"), child.getInt("type"));
-                            if (child.contains("structure")) {
-                                CompoundTag converted;
-                                try {
-                                    converted = OldLittleTilesDataParser.convertStructureData(child.getCompound("structure"));
-                                } catch (LittleMissingStructureException e) {
-                                    converted = child.getCompound("structure");
-                                    converted.putString("id_former", converted.getString("id"));
-                                    converted.putString("id", "fixed");
-                                    converted = OldLittleTilesDataParser.convertStructureData(converted);
+                    LittleGrid grid = LittleGrid.get(block.getOldData());
+                    if (!be.isEmpty())
+                        System.out.println(be.getBlockPos() + " is receiving another update");
+                    be.convertTo(grid);
+                    be.updateTiles(x -> {
+                        OldLittleTilesDataParser.collect(nbt.getList("tiles", Tag.TAG_COMPOUND), x.noneStructureTiles()::add);
+                        ListTag list = nbt.getList("children", Tag.TAG_COMPOUND);
+                        
+                        for (int i = 0; i < list.size(); i++) {
+                            CompoundTag child = list.getCompound(i);
+                            try {
+                                var structure = x.addStructure(child.getInt("index"), child.getInt("type"));
+                                if (child.contains("structure")) {
+                                    CompoundTag converted;
+                                    try {
+                                        converted = OldLittleTilesDataParser.convertStructureData(child.getCompound("structure"));
+                                    } catch (LittleMissingStructureException e) {
+                                        converted = child.getCompound("structure");
+                                        converted.putString("id_former", converted.getString("id"));
+                                        converted.putString("id", "fixed");
+                                        converted = OldLittleTilesDataParser.convertStructureData(converted);
+                                    }
+                                    structure.setStructureNBT(converted, level.registryAccess());
+                                } else {
+                                    int[] array = child.getIntArray("coord");
+                                    if (array.length == 3)
+                                        StructureParentCollection.setRelativePos(structure, new BlockPos(array[0], array[1], array[2]));
+                                    else
+                                        throw new LittleConvertException("No valid coord given " + child);
                                 }
-                                structure.setStructureNBT(converted, level.registryAccess());
-                            } else {
-                                int[] array = child.getIntArray("coord");
-                                if (array.length == 3)
-                                    StructureParentCollection.setRelativePos(structure, new BlockPos(array[0], array[1], array[2]));
-                                else
-                                    throw new LittleConvertException("No valid coord given " + child);
+                                OldLittleTilesDataParser.collect(child.getList("tiles", Tag.TAG_COMPOUND), structure::add);
+                            } catch (LittleConvertException e) {
+                                e.printStackTrace();
                             }
-                            OldLittleTilesDataParser.collect(child.getList("tiles", Tag.TAG_COMPOUND), structure::add);
-                        } catch (LittleConvertException e) {
-                            e.printStackTrace();
                         }
-                    }
-                });
-                
-                be.markDirty();
+                    });
+                    
+                    be.markDirty();
+                }
                 block.processed = true;
                 COUNTER--;
                 TOTAL++;
@@ -110,6 +112,7 @@ public class OldConverationHandler {
                     COUNTER = LOGUPDATE;
                 }
             }
+            LittleTilesImportOld.LOGGER.info("Finished converting {}", TOTAL);
             blockEntities.remove(level);
             processing = false;
             synchronized (queued) {

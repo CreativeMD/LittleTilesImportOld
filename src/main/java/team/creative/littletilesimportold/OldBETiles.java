@@ -53,6 +53,10 @@ public class OldBETiles extends BlockEntityCreative {
         super.loadAdditional(nbt, provider);
     }
     
+    public BlockState getValidState() {
+        return LittleTilesImportOldRegistry.OLD_BLOCK_TILES.value().defaultBlockState();
+    }
+    
     public static class OldBETilesTicking extends OldBETiles {
         
         public OldBETilesTicking(BlockPos pos, BlockState state) {
@@ -62,6 +66,11 @@ public class OldBETiles extends BlockEntityCreative {
         @Override
         public boolean ticking() {
             return true;
+        }
+        
+        @Override
+        public BlockState getValidState() {
+            return LittleTilesImportOldRegistry.OLD_BLOCK_TILES_TICKING.value().defaultBlockState();
         }
         
     }
@@ -75,6 +84,11 @@ public class OldBETiles extends BlockEntityCreative {
         @Override
         public boolean rendered() {
             return true;
+        }
+        
+        @Override
+        public BlockState getValidState() {
+            return LittleTilesImportOldRegistry.OLD_BLOCK_TILES_RENDERED.value().defaultBlockState();
         }
         
     }
@@ -93,6 +107,11 @@ public class OldBETiles extends BlockEntityCreative {
         @Override
         public boolean rendered() {
             return true;
+        }
+        
+        @Override
+        public BlockState getValidState() {
+            return LittleTilesImportOldRegistry.OLD_BLOCK_TILES_TICKING_RENDERED.value().defaultBlockState();
         }
         
     }
