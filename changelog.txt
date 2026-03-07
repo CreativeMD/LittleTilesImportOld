@@ -1,3 +1,7 @@
+1.0.7
+Fixed error spam in console
+Potentially fixed issue with neighbours messing up grid from other blocks
+
 1.0.6
 Fixed not being able to convert items
 
